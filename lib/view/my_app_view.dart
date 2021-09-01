@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:live_project_1/data/page_data.dart';
 
 class MyApp extends StatefulWidget {
@@ -22,52 +23,65 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FloatingActionButton(onPressed: () {
-              setState(() {
-                controller.jumpToPage(0);
-              });
-            }),
-            const SizedBox(
-              height: 15,
-            ),
-            FloatingActionButton(onPressed: () {
-              setState(() {
-                controller.jumpToPage(1);
-              });
-            }),
-            const SizedBox(
-              height: 15,
-            ),
-            FloatingActionButton(onPressed: () {
-              setState(() {
-                controller.jumpToPage(2);
-              });
-            }),
-            const SizedBox(
-              height: 15,
-            ),
-            FloatingActionButton(onPressed: () {
-              setState(() {
-                controller.jumpToPage(3);
-              });
-            }),
-          ],
-        ),
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: PageView.builder(
-          controller: controller,
-          itemCount: ListWidgetDate.widget.length,
-          itemBuilder: (context, index) =>
-              ListWidgetDate.widget.elementAt(index),
-        ),
+    return Scaffold(
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FloatingActionButton(onPressed: () {
+            setState(() {
+              controller.animateToPage(0,
+                  duration: const Duration(seconds: 1), curve: Curves.easeIn);
+            });
+          }),
+          const SizedBox(
+            height: 15,
+          ),
+          FloatingActionButton(onPressed: () {
+            setState(() {
+              controller.animateToPage(1,
+                  duration: const Duration(seconds: 1), curve: Curves.easeIn);
+            });
+          }),
+          const SizedBox(
+            height: 15,
+          ),
+          FloatingActionButton(onPressed: () {
+            setState(() {
+              controller.animateToPage(2,
+                  duration: const Duration(seconds: 1), curve: Curves.easeIn);
+            });
+          }),
+          const SizedBox(
+            // child: ResponsiveScreen(),
+            height: 15,
+          ),
+          FloatingActionButton(onPressed: () {
+            setState(() {
+              // controller.jumpToPage(3);
+              controller.animateToPage(3,
+                  duration: const Duration(seconds: 1), curve: Curves.easeIn);
+            });
+          }),
+        ],
+      ),
+      // appBar: PreferredSize(
+      //     child: Container(
+      //       color: Colors.black,
+      //     ),
+      //     preferredSize: Size(context.width, 50)),
+      body: PageView.builder(
+        allowImplicitScrolling: true,
+        // dragStartBehavior:,
+        pageSnapping: true,
+
+        scrollBehavior: const ScrollBehavior(
+            androidOverscrollIndicator: AndroidOverscrollIndicator.glow),
+        physics: const NeverScrollableScrollPhysics(),
+        reverse: true,
+        scrollDirection: Axis.vertical,
+        controller: controller,
+        itemCount: ListWidgetDate.widget.length,
+        itemBuilder: (context, index) => ListWidgetDate.widget.elementAt(index),
       ),
     );
   }
