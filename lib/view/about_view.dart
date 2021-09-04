@@ -1,14 +1,12 @@
-import 'dart:html';
+
 import 'package:flutter/material.dart';
-import 'package:google_maps/google_maps.dart';
-import 'dart:ui' as ui;
 
 class AboutView extends StatelessWidget {
   const AboutView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: SizedBox(
         height: 500,
         width: 500,

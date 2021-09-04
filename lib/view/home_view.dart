@@ -10,7 +10,6 @@ class HomeView extends GetView<PageControllers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.grey.shade200,
       body: Stack(
         // fit: StackFit.expand,
@@ -23,7 +22,7 @@ class HomeView extends GetView<PageControllers> {
               child: ColoredBox(
                 color: Colors.black87.withOpacity(0.5),
                 child: Image.asset(
-                  'assets/air.jpg',
+                  'assets/logo1.jpg',
                   fit: BoxFit.cover,
                 ),
               ),
@@ -35,23 +34,34 @@ class HomeView extends GetView<PageControllers> {
               child: CustomAppBarWidget(
                 controller: controller.pageController,
               ),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(20),
-              ),
+              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1)
+                  // borderRadius: BorderRadius.circular(20),
+                  ),
             ),
           ),
           Align(
             alignment: const Alignment(0.7, 0.7),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const HomePageCardWidget(),
+              children: const [
+                HomePageCardWidget(),
                 HomePageCardWidget(),
                 HomePageCardWidget(),
               ],
             ),
           ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              children: [
+                Expanded(
+                    child: Container(
+                  height: 100,
+                  color: Colors.red,
+                )),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -122,7 +132,7 @@ class HomePageCardWidget extends StatelessWidget {
             )
           ],
         ),
-        height: 200,
+        height: 250,
         width: 300,
 
         // color: Colors.white,

@@ -17,97 +17,116 @@ class CustomAppBarWidget extends StatefulWidget {
 class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       // color: Colors.grey[200],
       width: context.width,
+
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RichText(
-            text: const TextSpan(
+          if (Responsive.isMobile(context))
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: CustomAppbarIcon(
+                icon: Icons.menu,
+                title: 'Menu',
+                onTap: () {},
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextSpan(
-                  text: 'lobal',
+                const Text(
+                  'Global',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
+                    fontSize: 50,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.blue,
                   ),
                 ),
+                const VerticalDivider(
+                  color: Colors.black,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Refrigeration',
+                      style: TextStyle(fontSize: 25, color: Colors.black),
+                    ),
+                    Text(
+                      '& Company',
+                      style: TextStyle(fontSize: 25, color: Colors.black),
+                    )
+                  ],
+                )
               ],
-              text: 'G',
-              style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 35,
-                  fontWeight: FontWeight.w800),
             ),
           ),
-          // ClipRRect(
-          //   borderRadius: BorderRadius.circular(15.0),
-          //   child: Image.asset(
-          //     'assets/logo.jpeg',
-          //   ),
-          // ),
-          Row(
-            children: [
-              CustomAppbarIcon(
-                icon: Icons.home,
-                title: !Responsive.isTablet(context) ? 'Home' : '',
-                onTap: () {
-                  setState(() {
-                    widget.controller.animateToPage(0,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn);
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              CustomAppbarIcon(
-                icon: Icons.contact_page,
-                title: !Responsive.isTablet(context) ? 'Contact' : '',
-                onTap: () {
-                  setState(() {
-                    widget.controller.animateToPage(3,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn);
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              CustomAppbarIcon(
-                icon: Icons.person,
-                title: !Responsive.isTablet(context) ? 'About Us' : '',
-                onTap: () {
-                  setState(() {
-                    widget.controller.animateToPage(2,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn);
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              CustomAppbarIcon(
-                icon: Icons.article,
-                title: !Responsive.isTablet(context) ? 'Service' : '',
-                onTap: () {
-                  setState(() {
-                    widget.controller.animateToPage(2,
-                        duration: const Duration(milliseconds: 200),
-                        curve: Curves.easeIn);
-                  });
-                },
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-            ],
-          )
+          if (!Responsive.isMobile(context))
+            Row(
+              children: [
+                CustomAppbarIcon(
+                  icon: Icons.home,
+                  title: !Responsive.isTablet(context) ? 'Home' : '',
+                  onTap: () {
+                    setState(() {
+                      widget.controller.animateToPage(0,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    });
+                  },
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                CustomAppbarIcon(
+                  icon: Icons.contact_page,
+                  title: !Responsive.isTablet(context) ? 'Contact' : '',
+                  onTap: () {
+                    setState(() {
+                      widget.controller.animateToPage(3,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    });
+                  },
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                CustomAppbarIcon(
+                  icon: Icons.person,
+                  title: !Responsive.isTablet(context) ? 'About Us' : '',
+                  onTap: () {
+                    setState(() {
+                      widget.controller.animateToPage(2,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    });
+                  },
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                CustomAppbarIcon(
+                  icon: Icons.article,
+                  title: !Responsive.isTablet(context) ? 'Service' : null,
+                  onTap: () {
+                    setState(() {
+                      widget.controller.animateToPage(2,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeIn);
+                    });
+                  },
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+              ],
+            )
         ],
       ),
     );
@@ -117,12 +136,12 @@ class _CustomAppBarWidgetState extends State<CustomAppBarWidget> {
 class CustomAppbarIcon extends StatelessWidget {
   const CustomAppbarIcon({
     Key? key,
-    required this.title,
+    this.title,
     required this.icon,
     this.onTap,
   }) : super(key: key);
 
-  final String title;
+  final String? title;
   final IconData icon;
   final void Function()? onTap;
 
@@ -150,23 +169,26 @@ class CustomAppbarIcon extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 icon,
-                size: 30,
+                size: 27,
                 color: Theme.of(context).primaryColor,
               ),
-              const SizedBox(
-                width: 10,
-              ),
+              !Responsive.isMobile(context)
+                  ? const SizedBox(
+                      width: 10,
+                    )
+                  : const SizedBox.shrink(),
               Text(
-                title,
+                title ?? '',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 20,
+                  fontSize: 17,
                 ),
               ),
             ],

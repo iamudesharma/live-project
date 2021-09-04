@@ -11,19 +11,10 @@ class MyApp extends GetView<PageControllers> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      // appBar: !Responsive.isMobile(context)
-      //     ? PreferredSize(
-      //         child: CustomAppBarWidget(controller: controller.pageController),
-      //         preferredSize: Size(context.width, 200),
-      //       )
-      //     : const PreferredSize(
-      //         child: SizedBox.shrink(), preferredSize: Size(1, 1)),
       body: SafeArea(
         child: PageView.builder(
           allowImplicitScrolling: true,
-          // dragStartBehavior:,
           pageSnapping: true,
-
           scrollBehavior: const ScrollBehavior(
               androidOverscrollIndicator: AndroidOverscrollIndicator.glow),
           physics: const BouncingScrollPhysics(),
